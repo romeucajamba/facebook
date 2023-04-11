@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/download.png" type="image/x-icon">
+    <link rel="stylesheet" href="stilo.css">
+    <title>Cadastrar-se</title>
+</head>
+<body>
+    <div class="content">
+        <h1>Cadastrar-se</h1>
+        <form id="form">
+            <div>
+                <span class="span-required"> O nome deve ter no mínimo 3 caracteres!</span><br>
+                <input type="text" placeholder="Digita seu nome" class="inputs required" oninput="namevalidate()">
+            </div>
+            <div>
+               <br>
+                <span class="span-required">Digite um email válido</span>
+                <input type="email" placeholder="Digite seu email" class="inputs required" oninput="mainPasswordValidate"><br>
+            </div>
+            <div>
+                <br>
+                <span class="span-required">Senha deve ter no mínimo 8 caracteres</span><br>
+                <input type="password" placeholder="Digita uma senha" class="inputs required">
+            </div>
+            <div>
+                <br>
+                <span class="span-required">A senha deve ser compatível com anterior</span><br>
+                <input type="password" placeholder="Digite novamente a senha" class="inputs required" oninput="comparePassWord"><br>
+            </div>
+            <br>
+            <textarea class="inputs" name="descricao" id="descricao" cols="30" rows="10" placeholder=""></textarea>
+            <p><strong>Gênero:</strong></p>
+            <div class="box-selection">
+                <div>
+                    <input type="radio" id="m" value="m" name="gênero">
+                    <label for="M"><strong>Masculino</strong></label>
+                </div>
+                <div>
+                    <input type="radio" id="F" value="f" name="gênero">
+                    <label for="f"><strong>Feminino</strong></label>
+                </div>
+            </div> 
+            <p> <strong>Qual a sua nacionalidade</strong> </p>
+            <div class="box-select">
+                <div>
+                    <input type="checkbox"  id = "nacionalidade" value ="angolana" name="nacionalidade">
+                    <label for="angola"><strong>angolana</strong></label>
+                </div>
+                <div>
+                    <input type="checkbox"  id = "outra" value ="outra" name="nacionalidade">
+                    <label for="Outra">Outra</label>
+                </div>
+            </div>  
+            <button type="submit" class="btn"><a href = "">Enviar</a></button>
+        </form>
+    </div>
+    <script>
+        const form = document.getElementById('form');
+        const campos = document.querySelectorAll('.required');
+        const spans = document.getElementsByTagName('span');
+        const emailReget = /^\w+([-+,']\w*)*@\w\+([-,]\w+.)*\.\w+([-,]\w+)*$/;
+        
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+        });
+        
+        
+        function setError(index) {
+            campos[index].style.border = '1px solid #e63636';
+            spans[index].style.display ='block';
+        }
+        
+        function removeError(index) {
+            campos[index].style.display = '';
+            spans[index].style.display = 'none';   
+        }
+
+        function namevalidate() {
+             if (campos[0].value.length < 3) {
+                 setError(0);
+             }
+            else
+            {
+                removeError(0);
+            }
+        }    
+        function emailValidate() {
+            if (!emailReget.test(campos[1].value)) {
+                setError();
+            }
+            else 
+            {
+                removeError();
+            }
+        }
+
+        function mainPasswordValidate() {
+            if (campos[2].value.length < 8) {
+                setError();
+            }
+            else
+            {
+                removeError();
+                comparePassWord();
+            }
+        }
+        function comparePassWord() {
+            if (campos[2].value == campos[3].value && campos[3].value.length >= 8) {
+              removeError();  
+            }
+            else
+            {
+                setError();
+            }
+        }
+
+
+    </script>
+</body>
+</html>
